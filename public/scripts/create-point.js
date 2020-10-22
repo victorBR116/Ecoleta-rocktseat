@@ -7,13 +7,11 @@ function poulateUFs(){
     fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
     .then( (res) => res.json() )
     .then( states => {
-        
-        for( state of states){
-            ufselect.innerHTML +=  `<option value="${state.id}">${state.nome}<option>` 
-        }
-        
 
-    }  )
+        for(state of states) {
+             ufselect.options.add(new Option(state.nome,state.id))
+        }
+    })
 }
 
 poulateUFs()
@@ -38,15 +36,9 @@ poulateUFs()
         for( const city of cities){
             citySelect.innerHTML +=  `<option value="${city.nome}">${city.nome}</option>` 
         }
-        
-        
-        citySelect.disabled = false  
-    }  )
+        citySelect.disabled = false
+    })
  }
-
-
-
-
  document
     .querySelector("select[name=uf]")
     .addEventListener("change", getCities)  
@@ -57,7 +49,6 @@ poulateUFs()
     for (const item of itemsToCollect){
         item.addEventListener("click", handleSelectedItem)  
     }
-
     
     const collectedItems = document.querySelector("input[name=items]")
 
@@ -71,9 +62,7 @@ poulateUFs()
 
         const itemId = itemli.dataset.id
 
-
-
-
+        console.log('ITEM ID: ',itemId)
 
         // verificar se existem itens selecionado, se sim   
         // pegar os itens selecionados 
@@ -97,9 +86,9 @@ poulateUFs()
             //adicionar seleção 
             selectedItems.push(itemId)
         }
+        
+        console.log("")
+ 
         // atualizar o campo escondido com itens selecionados 
         collectedItems.value = selectedItems
-        
-
-
     }
